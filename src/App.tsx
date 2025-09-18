@@ -101,11 +101,15 @@ export default function App() {
   // Google 로그인 핸들러가 매우 간단해집니다.
   const handleGoogleSignIn = async () => {
     setError("");
+    await signOut(auth).catch(() => {});
     const provider = new GoogleAuthProvider();
-    // signInWithRedirect는 Promise를 반환하지만, 페이지가 이동하기 때문에
-    // .then() 이나 await 이후의 코드는 실행되지 않습니다.
-    // 모든 결과 처리는 페이지 로드 후 getRedirectResult가 담당합니다.
-    signInWithRedirect(auth, provider);
+
+    // 로그아웃 후 계정 선택 화면을 강제로 띄우기 위한 커스텀 OAuth 파라미터 추가
+    provider.setCustomParameters({
+      prompt: 'consent select_account' // 이 파라미터가 계정 선택 화면을 강제합니다.
+    });
+
+    await signInWithRedirect(auth, provider);
   };
 
   const handleSignOut = async () => {
