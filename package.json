@@ -10,6 +10,8 @@
     "dev:full": "yarn build:wasm && yarn dev"
   },
   "dependencies": {
+    "firebase": "^12.2.1",
+    "firebase-tools": "^14.17.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
