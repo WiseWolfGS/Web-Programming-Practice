@@ -6,6 +6,7 @@
   "scripts": {
     "build:wasm": "wasm-pack build wasm-core --target web --out-dir C:\\Users\\riftn\\Documents\\WASM_Example\\my-wasm-app\\src\\wasm\\pkg --release",
     "dev": "vite",
+    "build": "vite build",
     "preview": "vite preview",
     "dev:full": "yarn build:wasm && yarn dev"
   },
