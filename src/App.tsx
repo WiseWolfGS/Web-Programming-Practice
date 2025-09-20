@@ -23,19 +23,16 @@ export default function App() {
   // 로딩 상태를 추가하여, 리디렉션 결과를 처리하는 동안 UI가 깜빡이는 것을 방지합니다.
   const [isLoading, setIsLoading] = useState(true);
 
+  // 1. 인증 상태 관리 (Firebase)
   useEffect(() => {
-    // --- 리디렉션 결과 처리 ---
-    // 페이지가 로드될 때, Google 로그인으로부터 리디렉션되어 돌아온 것인지 확인합니다.
+    // Google 로그인 리디렉션 결과 처리
     getRedirectResult(auth)
       .then((result) => {
-        // result가 null이 아니면, 방금 로그인을 성공적으로 마친 것입니다.
-        // onAuthStateChanged가 어차피 호출되므로 여기서 별도의 user 상태 설정은 불필요합니다.
         if (result) {
           console.log("Redirect sign-in successful.");
         }
       })
       .catch((err) => {
-        // 리디렉션 과정에서 발생한 에러를 처리합니다.
         let message = "An unknown error occurred during redirect.";
         if (
           typeof err === "object" &&
@@ -48,13 +45,27 @@ export default function App() {
         setError(message);
       });
 
-    // --- 기존 로직들 ---
+    // 사용자의 로그인 상태를 감시하고, 변경 시 user 상태를 업데이트
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setIsLoading(false); // 사용자 상태가 확정되면 로딩을 해제
+    });
+
+    // 컴포넌트가 언마운트될 때 감시를 중단
+    return () => unsubscribe();
+  }, []);
+
+  // 2. WASM 모듈 로딩
+  useEffect(() => {
     loadWasm().then((w) => {
       const sum = w.add(21, 21);
       const greet = w.hello("React");
       setMsg(`${greet} | sum=${sum}`);
     });
+  }, []);
 
+  // 3. 초기 테마 설정
+  useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       setTheme(savedTheme);
@@ -64,15 +75,6 @@ export default function App() {
       ).matches;
       setTheme(prefersDark ? "dark" : "light");
     }
-
-    // onAuthStateChanged는 사용자의 로그인 상태를 계속 감시합니다.
-    // 페이지가 새로고침 되어도, Firebase가 세션을 복구하면 이 함수가 호출되어 user 상태를 설정합니다.
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setIsLoading(false); // 사용자 상태가 확정되면 로딩 상태를 해제합니다.
-    });
-
-    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
