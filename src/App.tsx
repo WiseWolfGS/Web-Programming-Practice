@@ -55,10 +55,15 @@ export default function App() {
       setMsg(`${greet} | sum=${sum}`);
     });
 
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    setTheme(prefersDark ? "dark" : "light");
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      setTheme(prefersDark ? "dark" : "light");
+    }
 
     // onAuthStateChanged는 사용자의 로그인 상태를 계속 감시합니다.
     // 페이지가 새로고침 되어도, Firebase가 세션을 복구하면 이 함수가 호출되어 user 상태를 설정합니다.
@@ -75,9 +80,9 @@ export default function App() {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-    const newTheme = theme
-    localStorage.setItem('theme', newTheme)
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
   };
 
   // --- 인증 핸들러 ---
