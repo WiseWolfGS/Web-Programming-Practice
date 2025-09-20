@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { loadWasm } from "./wasm";
 import { auth } from "./lib/firebase";
+import './App.css'
 import {
   // signInWithPopup을 삭제하고, 리디렉션 방식에 필요한 함수들을 import 합니다.
   GoogleAuthProvider,
@@ -146,9 +147,20 @@ export default function App() {
 
   return (
     <div className="container">
+      <nav className="pure-css-nav">
+        <input type="checkbox" id="nav-toggle" className="nav-toggle-checkbox" />
+        <label htmlFor="nav-toggle" className="nav-toggle-label">
+          <span>≡</span>
+        </label>
+        <ul className="nav-menu">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Settings</a></li>
+        </ul>
+      </nav>
       <header className="app-header">
         <h1>GA-Life Sim</h1>
-        <button onClick={toggleTheme} className="theme-toggle-button">
+        <button onClick={toggleTheme} className="btn">
           Toggle Theme
         </button>
       </header>
@@ -158,7 +170,7 @@ export default function App() {
           <section className="auth-section card">
             <h2>Welcome!</h2>
             <p>Signed in as: {user.email}</p>
-            <button onClick={handleSignOut} className="auth-button">
+            <button onClick={handleSignOut} className="btn">
               Sign Out
             </button>
           </section>
@@ -188,7 +200,7 @@ export default function App() {
                   required
                 />
               </div>
-              <button type="submit" className="auth-button">
+              <button type="submit" className="btn">
                 Sign In
               </button>
               {error && <p className="error-message">{error}</p>}
@@ -197,7 +209,7 @@ export default function App() {
             <div className="separator">OR</div>
             <button
               onClick={handleGoogleSignIn}
-              className="auth-button google-auth-button"
+              className="btn google-auth-button"
             >
               Sign in with Google
             </button>

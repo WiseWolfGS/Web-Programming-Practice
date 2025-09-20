@@ -85,23 +85,27 @@ body {
   transition: background-color 0.3s, border-color 0.3s;
 }
 
-.theme-toggle-button {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+/* A reusable button style that respects themes */
+.btn {
+  padding: 0.6em 1.2em;
+  border-radius: 8px;
   border: 1px solid var(--card-border);
   background-color: var(--button-background);
   color: var(--button-text);
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.2s, transform 0.1s;
+  font-size: 1em;
+  font-family: inherit;
+  transition: background-color 0.2s, transform 0.1s, border-color 0.2s;
 }
 
-.theme-toggle-button:hover {
+.btn:hover {
   background-color: var(--accent-color);
+  border-color: var(--accent-color-hover);
   color: white;
 }
 
-.theme-toggle-button:active {
+.btn:active {
   transform: scale(0.98);
 }
 
@@ -163,4 +167,54 @@ details[open] summary {
     flex-direction: column;
     gap: 1rem;
   }
+}
+
+
+/* Pure CSS Nav Menu */
+.nav-toggle-checkbox {
+  display: none;
+}
+
+.nav-toggle-label {
+  position: fixed;
+  top: 1rem;
+  right: 1.5rem;
+  z-index: 1001; /* 메뉴보다 높은 숫자를 주어 항상 위에 있도록 함 */
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  line-height: 2rem;
+  color: var(--text-color);
+}
+
+.nav-menu {
+  position: fixed;
+  top: 0;
+  right: -500px; /* 시작 위치: 화면 밖 */
+  width: 300px;
+  height: 100%;
+  background: var(--card-background);
+  transition: right 0.3s ease-in-out;
+  z-index: 1000; /* 레이블보다 낮은 숫자 */
+  box-shadow: -3px 0 15px rgba(0, 0, 0, 0.2);
+  padding-top: 4rem; /* 아이콘과 겹치지 않도록 여백 추가 */
+  list-style: none;
+}
+
+.nav-menu li {
+  padding: 1rem 2rem;
+}
+
+.nav-menu a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+/* 체크박스가 체크되면, 메뉴를 화면 안으로 슬라이드 */
+.nav-toggle-checkbox:checked ~ .nav-menu {
+  right: 0;
 }
