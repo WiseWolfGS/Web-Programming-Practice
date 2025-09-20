@@ -76,6 +76,8 @@ export default function App() {
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    const newTheme = theme
+    localStorage.setItem('theme', newTheme)
   };
 
   // --- 인증 핸들러 ---
