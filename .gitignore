@@ -24,5 +24,4 @@ dist-ssr
 *.sw?
 
 
-.firebase/*
-!.hosting.ZGlzdA.cache
+.firebase
