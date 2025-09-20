@@ -1,69 +1,74 @@
-# React + TypeScript + Vite
+# React + Rust(WASM) 학습 프로젝트
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+이 프로젝트는 React, Rust(WASM), Firebase, AWS 배포 기술 스택을 학습하고 연습하기 위한 개인 프로젝트입니다. Vite를 기반으로 한 React 프론트엔드와 Rust로 작성된 WASM 모듈을 통합하고, Firebase 인증을 구현하며, 최종적으로는 AWS에 배포하는 전체 과정을 경험하는 것을 목표로 합니다.
 
-Currently, two official plugins are available:
+자세한 개발 로드맵과 학습 과정에서 겪은 실수들은 `docs` 폴더에 기록되어 있습니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ 주요 기능
 
-## Expanding the ESLint configuration
+-   **Rust(WASM) 연동**: Rust로 작성된 함수(`add`, `hello` 등)를 React에서 호출
+-   **반응형 레이아웃**: CSS Grid와 Flexbox를 사용한 반응형 UI
+-   **테마 토글**: CSS 변수와 `localStorage`를 이용한 Light/Dark 모드 전환 및 유지
+-   **Firebase 인증**: 이메일/비밀번호 및 Google 소셜 로그인을 통한 사용자 인증
+-   **순수 CSS 네비게이션**: '체크박스 해킹' 기법을 이용한 사이드 메뉴
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ 기술 스택
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+-   **Frontend**: `React`, `TypeScript`, `Vite`
+-   **WASM**: `Rust`, `wasm-pack`, `wasm-bindgen`
+-   **Authentication**: `Firebase Authentication`
+-   **Styling**: `CSS3` (Grid, Flexbox, Variables)
+-   **Deployment**: `Firebase Hosting` (현재), `AWS S3/CloudFront` (목표)
+-   **Package Manager**: `yarn` (또는 `pnpm`/`npm`)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 📁 프로젝트 구조
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+WASM_Example/
+├─ my-wasm-app/         # Vite 기반 React 애플리케이션
+│  ├─ src/
+│  │  ├─ wasm/
+│  │  │  ├─ pkg/         # wasm-pack 빌드 결과물
+│  │  │  └─ index.ts     # WASM 모듈 로더
+│  └─ ...
+├─ wasm-core/             # Rust 라이브러리 크레이트 (WASM 컴파일 대상)
+│  └─ src/lib.rs
+└─ docs/                  # 프로젝트 로드맵, 세션 로그, 실수 기록 등 문서
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 시작하기
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1.  **의존성 설치** (`my-wasm-app` 폴더에서 실행)
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    ```bash
+    yarn install
+    ```
+
+2.  **WASM 모듈 빌드**
+
+    ```bash
+    yarn build:wasm
+    ```
+
+3.  **개발 서버 실행** (WASM 빌드 포함)
+
+    ```bash
+    yarn dev:full
+    ```
+
+## 🗺️ 학습 로드맵
+
+본 프로젝트는 `docs/ROADMAP.md`에 정의된 단계별 학습 목표를 따라 진행됩니다.
+
+-   **1단계**: Rust(WASM) ↔ React 기초 연동
+-   **2단계**: HTML5 + CSS3 최신 기능 연습 (반응형 레이아웃, 테마)
+-   **3단계**: Firebase Auth (로그인)
+-   **4단계**: AWS 정적 배포 (S3, CloudFront)
+-   **확장 목표**: WSL2 & Docker, 백엔드(NestJS), DB(PostgreSQL), Rhai 스크립팅 엔진 연동
+
+## 📝 학습 기록
+
+이 프로젝트의 핵심 목표는 '학습'입니다. 개발 과정에서 발생한 모든 실수와 해결 과정, 세션별 작업 내용은 `docs` 폴더에 상세히 기록하고 있습니다.
+
+-   [세션 로그](./docs/session_logs.md)
+-   [실수 및 해결 기록](./docs/mistakes/)
