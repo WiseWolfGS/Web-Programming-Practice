@@ -13,6 +13,21 @@
 
 ---
 
+## 2025년 9월 24일 수요일 - 세션 #5
+
+### 완료된 작업
+*   `useTheme` 커스텀 훅 생성 및 `App.tsx`에서 분리 완료.
+*   `Header`, `Navigation`, `Footer` 컴포넌트 분리 완료 및 `App.tsx`에 적용.
+*   `Header` 컴포넌트 분리 과정에서 발생한 컴포넌트 반환 타입 오류 디버깅 및 해결.
+*   `import React from "react";`의 필요성에 대한 학습 및 불필요한 import 제거.
+*   `git rebase -i`의 사용법, `pick`/`squash` 명령어, `git push -f`의 위험성 및 `git push --force-with-lease`의 안전한 사용법 등 Git 히스토리 재작성 관련 심화 학습.
+*   컴포넌트 구조 설계 시 시맨틱 및 계층 구조의 중요성 학습.
+
+### 다음 단계
+*   `useAuth` 커스텀 훅 생성 또는 `AuthSection` 컴포넌트 분리.
+
+---
+
 # 프로젝트 세션 로그
 
 ## 2025년 9월 18일 목요일 - 세션 #3
