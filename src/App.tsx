@@ -14,6 +14,9 @@ import {
   type User,
 } from "firebase/auth";
 
+import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
+
 export default function App() {
   const [theme, toggleTheme] = useTheme();
   const [msg, setMsg] = useState("Loading...");
@@ -127,23 +130,8 @@ export default function App() {
 
   return (
     <div className="container">
-      <nav className="pure-css-nav">
-        <input type="checkbox" id="nav-toggle" className="nav-toggle-checkbox" />
-        <label htmlFor="nav-toggle" className="nav-toggle-label">
-          <span>≡</span>
-        </label>
-        <ul className="nav-menu">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Settings</a></li>
-        </ul>
-      </nav>
-      <header className="app-header">
-        <h1>GA-Life Sim</h1>
-        <button onClick={toggleTheme} className="btn">
-          {theme}
-        </button>
-      </header>
+
+      <Navigation theme={theme} toggleTheme={toggleTheme} />
 
       <main className="app-main">
         {user ? (
@@ -213,7 +201,7 @@ export default function App() {
             </p>
           </details>
         </section>
-      
+
         <section className="info-section card">
           <h2>About This Section</h2>
           <details>
@@ -227,9 +215,7 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="app-footer">
-        <p>&copy; 2025 GA-Life Project. All rights reserved.</p>
-      </footer>
+      <Footer developerEmail="wwgs2005@gmail.com" developerInstaNickname="riftn7702"/>
     </div>
   );
 }
