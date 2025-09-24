@@ -4,6 +4,9 @@
 
 자세한 개발 로드맵과 학습 과정에서 겪은 실수들은 `docs` 폴더에 기록되어 있습니다.
 
+## 현재 구현된 화면
+![Sample Display](./sample_image.png)
+
 ## ✨ 주요 기능
 
 -   **Rust(WASM) 연동**: Rust로 작성된 함수(`add`, `hello` 등)를 React에서 호출
@@ -88,3 +91,6 @@ my-wasm-app/         # Vite 기반 React 애플리케이션
 -   [기본 로드맵](./docs/ROADMAP.md)
 -   [확장 로드맵](./docs/ROADMAP_EXTENTION.md)
 -   [향후 목표](./docs/GOAL.md)
+
+## 임시 배포 URL
+-   [WASM study & example](https://proto-ga-life.web.app/)
