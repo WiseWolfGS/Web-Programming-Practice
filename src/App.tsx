@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { loadWasm } from "./wasm";
 import { auth } from "./lib/firebase";
+import { useTheme } from "./hooks/useTheme";
 import './App.css'
 import {
   // signInWithPopup을 삭제하고, 리디렉션 방식에 필요한 함수들을 import 합니다.
@@ -14,8 +15,8 @@ import {
 } from "firebase/auth";
 
 export default function App() {
+  const [theme, toggleTheme] = useTheme();
   const [msg, setMsg] = useState("Loading...");
-  const [theme, setTheme] = useState("light");
   const [user, setUser] = useState<User | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,28 +66,7 @@ export default function App() {
     });
   }, []);
 
-  // 3. 초기 테마 설정
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      setTheme(prefersDark ? "dark" : "light");
-    }
-  }, []);
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
 
   // --- 인증 핸들러 ---
   const handleSignIn = async (e: React.FormEvent) => {
@@ -161,7 +141,7 @@ export default function App() {
       <header className="app-header">
         <h1>GA-Life Sim</h1>
         <button onClick={toggleTheme} className="btn">
-          Toggle Theme
+          {theme}
         </button>
       </header>
 
@@ -222,6 +202,18 @@ export default function App() {
           <div className="animated-box"></div>
         </section>
 
+        <section className="info-section card">
+          <h2>About This Section</h2>
+          <details>
+            <summary>What is this for?</summary>
+            <p>
+              This section demonstrates the use of the HTML5{" "}
+              <code>&lt;details&gt;</code> element. It's a simple way to create a
+              native accordion-style widget.
+            </p>
+          </details>
+        </section>
+      
         <section className="info-section card">
           <h2>About This Section</h2>
           <details>
