@@ -16,6 +16,7 @@ import {
 
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 export default function App() {
   const [theme, toggleTheme] = useTheme();
@@ -130,8 +131,8 @@ export default function App() {
 
   return (
     <div className="container">
-
-      <Navigation theme={theme} toggleTheme={toggleTheme} />
+      <Header theme={theme} toggleTheme={toggleTheme} />
+      <Navigation />
 
       <main className="app-main">
         {user ? (
